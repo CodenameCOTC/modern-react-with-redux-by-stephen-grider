@@ -2,19 +2,20 @@ import React from "react";
 
 class SearchBar extends React.Component {
   state = {
-    searchBar: ""
+    term: ""
   };
 
   onInputChange = async e => {
-    await this.setState({ searchBar: e.target.value });
+    await this.setState({ term: e.target.value });
   };
 
   onFormSubmit = e => {
     e.preventDefault();
+    this.props.onSubmit(this.state.term);
   };
 
   render() {
-    const { searchBar } = this.state;
+    const { term } = this.state;
     return (
       <div className="ui segment">
         <form className="ui form" onSubmit={this.onFormSubmit}>
@@ -24,8 +25,9 @@ class SearchBar extends React.Component {
               type="text"
               id="search-bar"
               onChange={this.onInputChange}
-              value={searchBar}
+              value={term}
               placeholder="Type here to search image"
+              autoComplete="off"
             />
           </div>
         </form>
